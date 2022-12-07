@@ -10,6 +10,8 @@
 #include <xc.h>
 #include "ChipConfig.h"
 #include "IO.h"
+#include "timer.h"
+#include "PWM.h"
 /*
  * 
  */
@@ -20,7 +22,6 @@ int main (void){
 /***************************************************************************************************/
 
 //Initialisation de l?oscillateur
-
 /****************************************************************************************************/
 
 InitOscillator();
@@ -32,6 +33,11 @@ InitOscillator();
 /****************************************************************************************************/
 
 InitIO();
+InitTimer23();
+InitTimer1();
+InitPWM();
+
+PWMSetSpeed(25);
 
 LED_BLANCHE = 1;
 LED_BLEUE = 1;
@@ -44,8 +50,8 @@ LED_ORANGE = 1;
 /****************************************************************************************************/
 
 while(1){
-    LED_BLANCHE = !LED_BLANCHE;
-    LED_BLEUE = !LED_BLEUE;
+   // LED_BLANCHE = !LED_BLANCHE;
+    // LED_BLEUE = !LED_BLEUE;
 } 
 
 // fin main
