@@ -36,9 +36,10 @@ InitIO();
 InitTimer23();
 InitTimer1();
 InitPWM();
+InitADC1();
+PWMSetSpeedConsigne(-25, MOTEUR_DROIT);
+PWMSetSpeedConsigne(-25, MOTEUR_GAUCHE);
 
-PWMSetSpeed(-25, MOTEUR_DROIT);
-PWMSetSpeed(-25, MOTEUR_GAUCHE);
 
 LED_BLANCHE = 1;
 LED_BLEUE = 1;
@@ -53,7 +54,22 @@ LED_ORANGE = 1;
 while(1){
    // LED_BLANCHE = !LED_BLANCHE;
     // LED_BLEUE = !LED_BLEUE;
+
+    //PWMSetSpeedConsigne(-20,MOTEUR_GAUCHE);
+    unsigned int * result = ADCGetResult();
+    ADC1StartConversionSequence();
+    unsigned int * ADC1BUF0 = result[0];
+    unsigned int * ADC1BUF1 = result[1];
+    unsigned int * ADC1BUF2 = result[2];
+    
+    
+    
 } 
+
+ADCIsConversionFinished();
+
+ADCClearConversionFinishedFlag();
+
 
 // fin main
 }
