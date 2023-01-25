@@ -11,7 +11,6 @@
       <itemPath>PWM.h</itemPath>
       <itemPath>ToolBox.h</itemPath>
       <itemPath>ADC.h</itemPath>
-      <itemPath>QEI.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -28,7 +27,6 @@
       <itemPath>PWM.c</itemPath>
       <itemPath>Toolbox.c</itemPath>
       <itemPath>ADC.c</itemPath>
-      <itemPath>QEI.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

@@ -12,7 +12,7 @@
 #include "IO.h"
 #include "timer.h"
 #include "PWM.h"
-#include "QEI.h"
+#include "ADC.h"
 /*
  * 
  */
