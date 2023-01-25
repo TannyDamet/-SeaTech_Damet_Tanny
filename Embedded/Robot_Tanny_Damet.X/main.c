@@ -12,6 +12,7 @@
 #include "IO.h"
 #include "timer.h"
 #include "PWM.h"
+#include "QEI.h"
 /*
  * 
  */
@@ -39,6 +40,8 @@ InitPWM();
 InitADC1();
 PWMSetSpeedConsigne(-25, MOTEUR_DROIT);
 PWMSetSpeedConsigne(-25, MOTEUR_GAUCHE);
+//InitQEI1();
+//InitQEI2();
 
 
 LED_BLANCHE = 1;
