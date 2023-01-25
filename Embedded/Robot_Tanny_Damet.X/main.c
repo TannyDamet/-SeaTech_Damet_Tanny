@@ -61,6 +61,7 @@ while(1){
     //PWMSetSpeedConsigne(-20,MOTEUR_GAUCHE);
     unsigned int * result = ADCGetResult();
     ADC1StartConversionSequence();
+    
     unsigned int * ADC1BUF0 = result[0];
     unsigned int * ADC1BUF1 = result[1];
     unsigned int * ADC1BUF2 = result[2];
