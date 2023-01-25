@@ -62,10 +62,22 @@ while(1){
     unsigned int * result = ADCGetResult();
     ADC1StartConversionSequence();
     
-    unsigned int * ADC1BUF0 = result[0];
-    unsigned int * ADC1BUF1 = result[1];
-    unsigned int * ADC1BUF2 = result[2];
+   // unsigned int * ADC1BUF0 = result[0];
+   // unsigned int * ADC1BUF1 = result[1];
+  //  unsigned int * ADC1BUF2 = result[2];
     
+    //if (ADCIsConversionFinished() == 1)
+{
+      //  ADCClearConversionFinishedFlag();
+     //   unsigned int * result = ADCGetResult();
+     //   float volts = ((float) result [2])* 3.3 / 4096 * 3.2;
+     //   robotState.distanceTelemetreDroit = 34 / volts - 5;
+     //  volts = ((float) result [1])* 3.3 / 4096 * 3.2;
+     //   robotState.distanceTelemetreCentre = 34 / volts - 5;
+      //  volts = ((float) result [0])* 3.3 / 4096 * 3.2;
+       // robotState.distanceTelemetreGauche = 34 / volts - 5;
+}
+
     
     
 } 
