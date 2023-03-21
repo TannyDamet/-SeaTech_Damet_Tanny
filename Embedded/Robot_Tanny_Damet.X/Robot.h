@@ -16,9 +16,11 @@ float vitesseGaucheConsigne;
 float vitesseGaucheCommandeCourante;
 float vitesseDroiteConsigne;
 float vitesseDroiteCommandeCourante;
-float distanceTelemetreDroit;
+float distanceTelemetreDroit_1;
+float distanceTelemetreDroit_2;
 float distanceTelemetreCentre;
-float distanceTelemetreGauche;
+float distanceTelemetreGauche_1;
+float distanceTelemetreGauche_2;
 
 
 }
