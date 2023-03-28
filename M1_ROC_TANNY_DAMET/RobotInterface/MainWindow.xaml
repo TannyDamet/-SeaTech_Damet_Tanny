@@ -1,0 +1,44 @@
+﻿<Window x:Class="RobotInterface.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RobotInterface"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="30"/>
+
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Header="EMISSION" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch"  Grid.Row="1"  Grid.Column="1">
+            <TextBox x:Name="textboxEmission" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" AcceptsReturn="True"/>
+        </GroupBox>
+
+        <GroupBox Header="RECEPTION" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="3">
+            <TextBox x:Name="textboxRéception" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" IsReadOnly="True" AcceptsReturn="True" />
+        </GroupBox>
+
+        <StackPanel Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="100">
+
+            <Button x:Name="buttonEnvoyer" Content="Envoyer" Click="buttonEnvoyer_Click" />
+
+
+        </StackPanel>
+
+
+    </Grid>
+</Window>
