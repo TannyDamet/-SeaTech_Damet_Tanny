@@ -25,7 +25,7 @@
         </Grid.ColumnDefinitions>
 
         <GroupBox Header="EMISSION" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch"  Grid.Row="1"  Grid.Column="1">
-            <TextBox x:Name="textboxEmission" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" AcceptsReturn="True"/>
+            <TextBox x:Name="textboxEmission" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" AcceptsReturn="True" KeyUp="TextBoxEmission_KeyUp"  />
         </GroupBox>
 
         <GroupBox Header="RECEPTION" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="3">

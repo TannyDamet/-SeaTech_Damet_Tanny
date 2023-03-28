@@ -46,19 +46,20 @@ namespace RobotInterface
             textboxEmission.Text = "";
             textboxRéception.Text += "\nRéçu : " + messageEmis;
         }
-    }
 
-        //  private void TextBoxEmission_KeyUp(KeyEventArgs)
-        //  {
-
-        //      if (e.Key == Key.Enter)
-        //      {
-        //          SendMessage();
-        //      }
-
-
+        private void TextBoxEmission_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                SendMessage();
+            }
+        }
 
     }
 
+    
 
+    
+
+}
     
