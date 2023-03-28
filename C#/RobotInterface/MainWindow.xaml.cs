@@ -29,13 +29,17 @@ namespace RobotInterface
             InitializeComponent();
             serialPort1 = new ReliableSerialPort("COM15", 115200, System.IO.Ports.Parity.None, 8, System.IO.Ports.StopBits.One);
             serialPort1.OnDataReceivedEvent += SerialPort1_OnDataReceivedEvent;
+            //serialPort1.DataReceived += SerialPort1_DataReceived;
             serialPort1.Open();
 
         }
 
+        //private void SerialPort1_DataReceived(object sender, DataReceivedArgs e)
+        //{}
+
         private void SerialPort1_OnDataReceivedEvent(object sender, DataReceivedArgs e)
         {
-            //throw new NotImplementedException();
+            textboxRéception.Text += Encoding.UTF8.GetString(e.Data, 0, e.Data.Length);
         }
 
         bool toggle = false;
