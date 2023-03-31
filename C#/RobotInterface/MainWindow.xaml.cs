@@ -52,17 +52,33 @@ namespace RobotInterface
         private void TimerAffichage_Tick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            if (robot.receivedText != "")
-                textboxRéception.Text += robot.receivedText;
-                robot.receivedText = "";
+           // if (robot.receivedText != "")
+           //     textboxRéception.Text += robot.receivedText;
+//robot.receivedText = "";
 
+            while (robot.byteListReceived.Count>0)
+            {
+                textboxRéception.Text += robot.byteListReceived.Dequeue().ToString();
+
+            }
         }
 
         //private void SerialPort1_DataReceived(object sender, DataReceivedArgs e){}
+
+
         private void SerialPort1_OnDataReceivedEvent(object sender, DataReceivedArgs e)
         {
             //textboxRéception.Text += Encoding.UTF8.GetString(e.Data, 0, e.Data.Length);
             robot.receivedText += Encoding.UTF8.GetString(e.Data, 0, e.Data.Length);
+
+            for (int i = 0; i < e.Data.Length; i++)
+            {
+                byte b = e.Data[i];
+                
+$                robot.byteListReceived.Enqueue(b);
+            }
+
+
         }
 
         private void buttonTest_Click(object sender, RoutedEventArgs e)
