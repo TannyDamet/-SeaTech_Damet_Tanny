@@ -32,19 +32,27 @@
             <TextBox x:Name="textboxRéception" HorizontalAlignment= "Stretch" VerticalAlignment="Stretch" IsReadOnly="True" AcceptsReturn="True" />
         </GroupBox>
 
-        <StackPanel Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="100">
+        <StackPanel  Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="100">
 
             <Button x:Name="buttonEnvoyer" Content="Envoyer" Click="buttonEnvoyer_Click" />
-
+            
         </StackPanel>
+
+        <StackPanel  Grid.Column="3" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="100">
+            
+            <Button x:Name="buttonSupprimer" Content="Supprimer" Click="buttonSupprimer_Click"/>
         
-        <StackPanel />
+        </StackPanel>
 
-        <Button x:Name="buttonSupprimer" Content="Supprimer"  Grid.Column="3" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="100" Click="buttonSupprimer_Clear"/>
+        <StackPanel  Grid.Column="2" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="100">
+            
+            <Button x:Name="buttonTest" Content="Test" Click="buttonTest_Click"/>
+      
+        </StackPanel>
 
-        <StackPanel />
 
-       
+
+
 
 
     </Grid>

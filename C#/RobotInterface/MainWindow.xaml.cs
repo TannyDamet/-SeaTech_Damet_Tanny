@@ -17,15 +17,22 @@ using System.Windows.Threading;
 
 namespace RobotInterface
 {
+
     /// <summary>
     /// Logique d'interaction pour MainWindow.xaml
     /// </summary>
+
+
+
+
     public partial class MainWindow : Window
     {
 
         ReliableSerialPort serialPort1;
         DispatcherTimer timerAffichage = new DispatcherTimer();
-        string receivedText = "";
+        Robot robot = new Robot();
+        
+        bool toggle = false;
 
 
         public MainWindow()
@@ -40,15 +47,14 @@ namespace RobotInterface
             timerAffichage.Tick += TimerAffichage_Tick;
             timerAffichage.Start();
 
-
         }
 
         private void TimerAffichage_Tick(object sender, EventArgs e)
         {
             //throw new NotImplementedException();
-            if (receivedText != "")
-                textboxRéception.Text += receivedText;
-                receivedText = "";
+            if (robot.receivedText != "")
+                textboxRéception.Text += robot.receivedText;
+                robot.receivedText = "";
 
         }
 
@@ -56,14 +62,47 @@ namespace RobotInterface
         private void SerialPort1_OnDataReceivedEvent(object sender, DataReceivedArgs e)
         {
             //textboxRéception.Text += Encoding.UTF8.GetString(e.Data, 0, e.Data.Length);
-            receivedText += Encoding.UTF8.GetString(e.Data, 0, e.Data.Length);
+            robot.receivedText += Encoding.UTF8.GetString(e.Data, 0, e.Data.Length);
+        }
+
+        private void buttonTest_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (toggle == true)
+
+                buttonTest.Background = Brushes.RoyalBlue;
+            else
+                buttonTest.Background = Brushes.Gold;
+
+            toggle = !toggle;
+
+            ConstruireTableau();
+        }
+
+
+        void ConstruireTableau()
+        {
+            byte[] byteList = new byte[20];
+            for (int i = 0; i < 20; i++)
+            {
+                byteList[i] = (byte)(2* i);
+            }
+            serialPort1.Write(byteList, 0, byteList.Length);
         }
 
 
 
 
 
-        bool toggle = false;
+
+
+
+
+
+
+
+
+
 
 
         private void buttonEnvoyer_Click(object sender, RoutedEventArgs e)
@@ -80,7 +119,7 @@ namespace RobotInterface
             SendMessage();
         }
 
-        private void buttonSupprimer_Clear(object sender, RoutedEventArgs e)
+        private void buttonSupprimer_Click(object sender, RoutedEventArgs e)
         {
 
             if (toggle == true)
