@@ -75,7 +75,7 @@ namespace RobotInterface
             {
                 byte b = e.Data[i];
                 
-$                robot.byteListReceived.Enqueue(b);
+                robot.byteListReceived.Enqueue(b);
             }
 
 

@@ -15,6 +15,7 @@
 #include "ADC.h"
 #include "Robot.h" 
 #include "main.h"
+#include "UART.h"
 
 /*
  * 
@@ -42,6 +43,9 @@ int main(void) {
     InitTimer4();
     InitPWM();
     InitADC1();
+    void InitUART();
+
+    
     //    PWMSetSpeedConsigne(-25, MOTEUR_DROIT);
     //    PWMSetSpeedConsigne(-25, MOTEUR_GAUCHE);
 
@@ -105,6 +109,8 @@ int main(void) {
                 LED_BLANCHE = 0;
         }
 
+        SendMessageDirect((unsigned char*) "Bonjour", 7);
+        __delay32(40000000);
 
 
 
