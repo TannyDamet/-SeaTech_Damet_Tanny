@@ -95,6 +95,12 @@ namespace RobotInterface
             toggle = !toggle;
 
             ConstruireTableau();
+
+            //string payloadString = "Hello, world!";
+            //byte[] payload = Encoding.ASCII.GetBytes(payloadString);
+            //UartEncodeAndSendMessage(0x0080, payload.Length, payload);
+
+
         }
 
 
@@ -108,54 +114,45 @@ namespace RobotInterface
             serialPort1.Write(byteList, 0, byteList.Length);
         }
 
-        public byte CalculateChecksum(int msgFunction, int msgPayloadLength, byte[] msgPayload)
-        {
-            byte checksum = 0;
+        //public byte CalculateChecksum(int msgFunction, int msgPayloadLength, byte[] msgPayload)
+        //{
+        //    byte checksum = 0;
 
-            // Add the function code and payload length to the checksum
-            checksum += (byte)msgFunction;
-            checksum += (byte)msgPayloadLength;
+        //    // Add the function code and payload length to the checksum
+        //    checksum += (byte)msgFunction;
+        //    checksum += (byte)msgPayloadLength;
 
-            // Add each byte of the payload to the checksum
-            for (int i = 0; i < msgPayloadLength; i++)
-            {
-                checksum += msgPayload[i];
-            }
+        //    // Add each byte of the payload to the checksum
+        //    for (int i = 0; i < msgPayloadLength; i++)
+        //    {
+        //        checksum += msgPayload[i];
+        //    }
 
-            // Return the 2's complement of the checksum
-            return (byte)(~checksum + 1);
-        }
+        //    // Return the 2's complement of the checksum
+        //    return (byte)(~checksum + 1);
+        //}
 
 
 
-public void UartEncodeAndSendMessage(int msgFunction, int msgPayloadLength, byte[] msgPayload)
-    {
-        // Calculate the checksum
-        byte checksum = CalculateChecksum(msgFunction, msgPayloadLength, msgPayload);
+//public void UartEncodeAndSendMessage(int msgFunction, int msgPayloadLength, byte[] msgPayload)
+//    {
+//        // Calculate the checksum
+//        byte checksum = CalculateChecksum(msgFunction, msgPayloadLength, msgPayload);
 
-        // Create the message buffer
-        byte[] message = new byte[msgPayloadLength + 5];
+//        // Create the message buffer
+//        byte[] message = new byte[msgPayloadLength + 5];
 
-        // Add the start byte, function code, payload length, payload, and checksum to the message buffer
-        message[0] = 0x01; // Start byte
-        message[1] = (byte)msgFunction;
-        message[2] = (byte)msgPayloadLength;
-        Array.Copy(msgPayload, 0, message, 3, msgPayloadLength);
-        message[msgPayloadLength + 3] = checksum;
+//        // Add the start byte, function code, payload length, payload, and checksum to the message buffer
+//        message[0] = 0x01; // Start byte
+//        message[1] = (byte)msgFunction;
+//        message[2] = (byte)msgPayloadLength;
+//        Array.Copy(msgPayload, 0, message, 3, msgPayloadLength);
+//        message[msgPayloadLength + 3] = checksum;
 
-        // Add the end byte to the message buffer
-        message[msgPayloadLength + 4] = 0x04; // End byte
+//        // Add the end byte to the message buffer
+//        message[msgPayloadLength + 4] = 0x04; // End byte
 
-        // Open the serial port
-        SerialPort serialPort = new SerialPort("COM15", 115200);
-        serialPort.Open();
-
-        // Send the message
-        serialPort.Write(message, 0, message.Length);
-
-        // Close the serial port
-        serialPort.Close();
-    }
+//    }
 
 
 
