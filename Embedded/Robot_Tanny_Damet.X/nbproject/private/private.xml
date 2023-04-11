@@ -4,12 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Github/ROC_Damet_Tanny/Embedded/Robot_Tanny_Damet.X/main.c</file>
-            <file>file:/C:/Github/ROC_Damet_Tanny/Embedded/Robot_Tanny_Damet.X/CB_RX1.c</file>
-            <file>file:/C:/Github/ROC_Damet_Tanny/Embedded/Robot_Tanny_Damet.X/CB_TX1.h</file>
             <file>file:/C:/Github/ROC_Damet_Tanny/Embedded/Robot_Tanny_Damet.X/CB_RX1.h</file>
-            <file>file:/C:/Github/ROC_Damet_Tanny/Embedded/Robot_Tanny_Damet.X/IO.c</file>
+            <file>file:/C:/Github/ROC_Damet_Tanny/Embedded/Robot_Tanny_Damet.X/CB_RX1.c</file>
+            <file>file:/C:/Github/ROC_Damet_Tanny/Embedded/Robot_Tanny_Damet.X/UART.c</file>
+            <file>file:/C:/Github/ROC_Damet_Tanny/Embedded/Robot_Tanny_Damet.X/UART.h</file>
             <file>file:/C:/Github/ROC_Damet_Tanny/Embedded/Robot_Tanny_Damet.X/CB_TX1.c</file>
-            <file>file:/C:/Github/ROC_Damet_Tanny/Embedded/Robot_Tanny_Damet.X/ChipConfig.c</file>
         </group>
     </open-files>
 </project-private>
