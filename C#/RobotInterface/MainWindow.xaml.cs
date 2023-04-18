@@ -86,7 +86,7 @@ namespace RobotInterface
 
         private void buttonTest_Click(object sender, RoutedEventArgs e)
         {
-
+            
             if (toggle == true)
 
                 buttonTest.Background = Brushes.RoyalBlue;
@@ -97,11 +97,17 @@ namespace RobotInterface
 
             ConstruireTableau();
 
+
+
+
             string payloadMessage = "Bonjour!";
             byte[] payload = Encoding.ASCII.GetBytes(payloadMessage);
+
             UartEncodeAndSendMessage(0x0080, payload.Length, payload);
 
-            ProcessDecodedMessage(msgDecodedFunction, msgDecodedPayloadLength, msgDecodedPayload);
+            ProcessDecodedMessage(0x0080, payload.Length, payload);
+           
+            //textboxEmission.Clear();
 
         }
 
@@ -189,7 +195,6 @@ namespace RobotInterface
 
         byte receivedChecksum = 0;
 
-
         private void DecodeMessage(byte c)
         {
             switch (rcvState)
@@ -215,7 +220,11 @@ namespace RobotInterface
                     if (msgDecodedPayloadLength == 0)
                         rcvState = StateReception.CheckSum;
                     else
+                    {
                         rcvState = StateReception.Payload;
+                        msgDecodedPayload = new byte[msgDecodedPayloadLength];
+                        msgDecodedPayloadIndex = 0;
+                    }
                         
                 break;
                 case StateReception.Payload:
@@ -225,8 +234,6 @@ namespace RobotInterface
                         rcvState = StateReception.CheckSum;
                     else
                         rcvState = StateReception.Payload;
-                        msgDecodedPayloadIndex = 0;
-                        msgDecodedPayload = new byte [msgDecodedPayloadLength];
 
                     break;
                case StateReception.CheckSum:
@@ -254,13 +261,6 @@ namespace RobotInterface
             VitesseMoteur = 0x0040,
         }
 
-        // Envoi d'un message ReglageLED avec LED1 allumée et LED2 éteinte
-
-        //byte[] payload = new byte[2];
-        //payload[0] = 0x01; //
-        //payload[1] = 0x00;
-
-
 
         void ProcessDecodedMessage(int msgFunction, int msgPayloadLength, byte[] msgPayload)
         {
@@ -269,49 +269,78 @@ namespace RobotInterface
                 case (int)MessageFunction.TexteMessage:
 
                     for (int i = 0; i < msgPayloadLength; i++)
-                        textboxRéception.Text += Environment.NewLine;
-                        textboxRéception.Text += "Text" + Encoding.ASCII.GetString(msgPayload);
-                        textboxRéception.Text += Environment.NewLine;
-
+                    {
+                        textboxRéception.Text += "0x" + msgPayload[i].ToString("X") + " ";
+                    }
+                    textboxRéception.Text += Environment.NewLine;
+                    textboxRéception.Text += "Texte reçu : " + Encoding.ASCII.GetString(msgPayload);
+                    textboxRéception.Text += Environment.NewLine;
                     break;
 
                 case (int)MessageFunction.ReglageLED:
 
                     for (int i = 0; i < msgPayloadLength; i++)
+                    {
                         textboxRéception.Text += "0x" + msgPayload[i].ToString("X") + " ";
-                        textboxRéception.Text += Environment.NewLine;
-
+                    }
+                    textboxRéception.Text += Environment.NewLine;
+                    textboxRéception.Text += "LED Number : " + msgPayload[0].ToString() + " ";
+                    if (msgPayload[1] == 1)
+                    {
+                        textboxRéception.Text += "( Allumée )";
+                        checkBoxLed1.IsChecked = true;
+                    }
+                    else
+                        textboxRéception.Text += "( éteinte )";
+                    textboxRéception.Text += Environment.NewLine;
                     break;
 
                 case (int)MessageFunction.DistanceTelemetre:
 
                     for (int i = 0; i < msgPayloadLength; i++)
+                    {
                         textboxRéception.Text += "0x" + msgPayload[i].ToString("X") + " ";
-                        textboxRéception.Text += Environment.NewLine;
+                    }
+                    textboxRéception.Text += Environment.NewLine;
+                    textboxRéception.Text += "Télémètre Gauche : " + msgPayload[0].ToString() + Environment.NewLine;
+                    textboxRéception.Text += "Télémètre Centre : " + msgPayload[1].ToString() + Environment.NewLine;
+                    textboxRéception.Text += "Télémètre Droit : " + msgPayload[2].ToString() + Environment.NewLine;
+                    textboxRéception.Text += Environment.NewLine;
+
+                    IR_Gauche.Content = msgPayload[0];
+                    IR_Centre.Content = msgPayload[1];
+                    IR_Droit.Content = msgPayload[2];
                     break;
 
                 case (int)MessageFunction.VitesseMoteur:
 
                     for (int i = 0; i < msgPayloadLength; i++)
+                    {
                         textboxRéception.Text += "0x" + msgPayload[i].ToString("X") + " ";
-                        textboxRéception.Text += Environment.NewLine;
+                    }
+                    textboxRéception.Text += Environment.NewLine;
+                    textboxRéception.Text += "Moteur Gauche : " + msgPayload[0].ToString() + Environment.NewLine;
+                    textboxRéception.Text += "Moteur Droit : " + msgPayload[1].ToString() + Environment.NewLine;
+                    textboxRéception.Text += Environment.NewLine;
+
+
+                    Moteur_Gauche.Content = msgPayload[0];
+                    Moteur_Droit.Content = msgPayload[1];
 
                     break;
+
 
                 default:
                     textboxRéception.Text += "Message inconnu";
                     break;
-
             }
 
+            
         }
 
 
 
-
-
-
-                    //*****************************************************************************************************************************
+        //*****************************************************************************************************************************
 
         private void buttonEnvoyer_Click(object sender, RoutedEventArgs e)
         {
@@ -368,30 +397,6 @@ namespace RobotInterface
 
 
 
-
-
-
-
-
-//    // Envoi d'un message DistanceMeasurement
-//    UartEncodeAndSendMessage((int) MessageFunction.DistanceMeasurement, 0, null);
-
-//    // Envoi d'un message MotorSpeed avec une vitesse de 50 pour le moteur gauche et 75 pour le moteur droit
-//    payload = new byte[4];
-//payload[0] = 0x00; // Moteur gauche
-//payload[1] = 0x50; // Vitesse de 50
-//payload[2] = 0x01; // Moteur droit
-//payload[3] = 0x75; // Vitesse de 75
-//UartEncodeAndSendMessage((int) MessageFunction.MotorSpeed, 4, payload);
-
-//    // Envoi d'un message RobotPosition avec une position X de 100 et une position Y de 200
-//    payload = new byte[4];
-//payload[0] = 0x00; // Position X
-//payload[1] = 0x64; // Position X = 100
-//payload[2] = 0x01; // Position Y
-//payload[3] = 0xC8; // Position Y = 200
-//UartEncodeAndSendMessage((int) MessageFunction.RobotPosition, 4, payload);
-  
  }
 
 
