@@ -301,11 +301,16 @@ namespace RobotInterface
                     {
                         textboxRéception.Text += "0x" + msgPayload[i].ToString("X") + " ";
                     }
-                    textboxRéception.Text += Environment.NewLine;
-                    textboxRéception.Text += "Télémètre Gauche : " + msgPayload[0].ToString() + Environment.NewLine;
-                    textboxRéception.Text += "Télémètre Centre : " + msgPayload[1].ToString() + Environment.NewLine;
-                    textboxRéception.Text += "Télémètre Droit : " + msgPayload[2].ToString() + Environment.NewLine;
-                    textboxRéception.Text += Environment.NewLine;
+                    IR_Gauche.Content = "Télémètre Gauche : " + msgPayload[0].ToString();
+                    IR_Centre.Content = "Télémètre Centre : " + msgPayload[1].ToString();
+                    IR_Droit.Content ="Télémètre Droit : " + msgPayload[2].ToString();
+
+
+                    //textboxRéception.Text += Environment.NewLine;
+                    //textboxRéception.Text += "Télémètre Gauche : " + msgPayload[0].ToString() + Environment.NewLine;
+                    //textboxRéception.Text += "Télémètre Centre : " + msgPayload[1].ToString() + Environment.NewLine;
+                    //textboxRéception.Text += "Télémètre Droit : " + msgPayload[2].ToString() + Environment.NewLine;
+                    //textboxRéception.Text += Environment.NewLine;
 
                     IR_Gauche.Content = msgPayload[0];
                     IR_Centre.Content = msgPayload[1];
