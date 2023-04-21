@@ -83,6 +83,17 @@ int main(void) {
             volts = ((float) result [3])* 3.3 / 4096 * 3.2;
             robotState.distanceTelemetreGauche_2 = 34 / volts - 5;
 
+            
+            UartEncodeAndSendMessage(0x0020, sizeof(payload), payload);
+
+            
+//        unsigned char payload[] = {'B', 'o', 'n', 'j', 'o', 'u', 'r'}; 
+        
+//        UartEncodeAndSendMessage(0x0080, sizeof(payload), payload);
+//        
+//        __delay32(40000000);
+ 
+            
 
             if (robotState.distanceTelemetreDroit_2 > 30) {
                 LED_ORANGE = 1;
@@ -120,15 +131,9 @@ int main(void) {
             unsigned char c = CB_RX1_Get();
             SendMessage(&c, 1);
         }
-       // __delay32(10000);
+        __delay32(10000);
         
-        unsigned char payload[] = {'B', 'o', 'n', 'j', 'o', 'u', 'r'};
-        
-        //nt payloadLength = sizeof(payload);
-        
-        UartEncodeAndSendMessage(0x0080, sizeof(payload), payload);
-        
-        __delay32(40000000);
+//        
 
  
 
