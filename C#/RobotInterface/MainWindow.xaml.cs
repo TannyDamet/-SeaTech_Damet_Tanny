@@ -106,9 +106,9 @@ namespace RobotInterface
             UartEncodeAndSendMessage(0x0080, payload.Length, payload);
 
             ProcessDecodedMessage(0x0080, payload.Length, payload);
-           
-            //textboxEmission.Clear();
 
+            //textboxEmission.Clear();
+            textboxRéception.Text += "" + payload.Length;
         }
 
 

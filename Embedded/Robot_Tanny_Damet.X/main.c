@@ -120,10 +120,22 @@ int main(void) {
             unsigned char c = CB_RX1_Get();
             SendMessage(&c, 1);
         }
-        __delay32(10000);
+       // __delay32(10000);
+        
+        unsigned char payload[] = {'B', 'o', 'n', 'j', 'o', 'u', 'r'};
+        
+        //nt payloadLength = sizeof(payload);
+        
+        UartEncodeAndSendMessage(0x0080, sizeof(payload), payload);
+        
+        __delay32(40000000);
+
  
 
     }
+    
+    
+    
 }
 
 
