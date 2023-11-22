@@ -32,13 +32,19 @@
 Semaphore_Struct semTacheLCDStruct;
 Semaphore_Handle semTacheLCDHandle;
 
+uint8_t TacheLCDStack[TACHELCD_TASK_STACK_SIZE];
+Task_Struct TacheLCD;
+
+
 float Ax,Ay,Az;
 
-void afficherDonnees(float accx, float accy, float accz){
-    Ax = accx;
-    Ay = accy;
-    Az = accz;
+
+void afficherDonnees(float Voltaccx, float Voltaccy, float Voltaccz){
+    Ax = 9.81*((Voltaccx - 1.65)/0.66);
+    Ay = 9.81*((Voltaccy - 1.65)/0.66);
+    Az = 9.81*((Voltaccz - 1.65)/0.66);
     Semaphore_post(semTacheLCDHandle);
+
 }
 
 void LCD_Init(void){
@@ -99,16 +105,48 @@ static void TacheLCD_taskFxn(UArg a0, UArg a1){
 
     //Fill display with a given RGB value
     Fill_LCD(0xFF,0x00,0x00); //RGB
-    OLEDText22(8, 8, DataLCD1, SIZE_TWO, 0xFF, 0x00);
-    OLEDText22(8, 33, DataLCD2, SIZE_TWO, 0xFF, 0x00);
-    OLEDText22(8, 58, DataLCD3, SIZE_TWO, 0xFF, 0x00);
+    OLEDText22(8, 8, DataLCD1, SIZE_TWO, 0xFF, 0xFF, 0x00);
+    OLEDText22(8, 33, DataLCD2, SIZE_TWO, 0xFF, 0xFF, 0x00);
+    OLEDText22(8, 58, DataLCD3, SIZE_TWO, 0xFF, 0xFF, 0x00);
 
     for(;;){
 
         Semaphore_pend(semTacheLCDHandle, BIOS_WAIT_FOREVER);
 
 
+        char axDataLCD[10] = "";
+        char ayDataLCD[10] = "";
+        char azDataLCD[10] = "";
+
+        floatToString1d(axDataLCD, Ax);
+        OLEDText22(50, 8, axDataLCD, SIZE_TWO, 0xFF, 0xFF, 0x00);
+
+        floatToString1d(ayDataLCD, Ay);
+        OLEDText22(50, 33, ayDataLCD, SIZE_TWO, 0xFF, 0xFF, 0x00);
+
+        floatToString1d(azDataLCD, Az);
+        OLEDText22(50, 58, azDataLCD, SIZE_TWO, 0xFF, 0xFF, 0x00);
+
     }
 }
 
+void TacheLCD_CreateTask(void){
 
+    Semaphore_Params semParams;
+    Task_Params taskParams;
+
+    /* Configuration de la tache*/
+    Task_Params_init(&taskParams);
+    taskParams.stack = TacheLCDStack;
+    taskParams.stackSize = TACHELCD_TASK_STACK_SIZE;
+    taskParams.priority = TACHELCD_TASK_PRIORITY;
+    /* Creation de la tache*/
+    Task_construct(&TacheLCD,TacheLCD_taskFxn,&taskParams, NULL);
+    /* Construire un objet semaphore
+    pour etre utilise comme outil de
+    verrouillage, comptage initial 0 */
+    Semaphore_Params_init(&semParams);
+    Semaphore_construct(&semTacheLCDStruct,0, &semParams);
+    /* Obtenir la gestion de l'instance */
+    semTacheLCDHandle = Semaphore_handle(&semTacheLCDStruct);
+}

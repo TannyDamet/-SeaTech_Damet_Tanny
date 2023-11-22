@@ -11,7 +11,7 @@
 
 void TacheADC_CreateTask(void);
 extern void TacheADC_init(void);
-void Sampling(uint_least8_t Board_ADC_Number);
+float Sampling(uint_least8_t Board_ADC_Number);
 
 
 

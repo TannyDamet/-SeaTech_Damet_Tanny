@@ -28,6 +28,7 @@
 #include <ti/drivers/GPIO.h>
 #include <ti_drivers_config.h>
 #include <ti/drivers/ADC.h>
+#include <TacheLCD/TacheLCD.h>
 
 #define TACHEADC_TASK_PRIORITY 1
 #define TACHEADC_TASK_STACK_SIZE 1024
@@ -51,9 +52,16 @@ void Turn_off_LEDS(void)
     //GPIO_write(LED_GREEN,0);
 }
 
+float Voltaccx;
+float Voltaccy;
+float Voltaccz;
+
 static void TacheADC_taskFxn(UArg a0, UArg a1)
 {
+
+
     TacheADC_init();
+
     for(;;)
     {
 
@@ -67,11 +75,14 @@ static void TacheADC_taskFxn(UArg a0, UArg a1)
 
     // Le semaphore est poste par le timer myClock
     Semaphore_pend(semTacheADCHandle, BIOS_WAIT_FOREVER);
-    Sampling(CONFIG_ADC_0);
-    Sampling(CONFIG_ADC_1);
-    Sampling(CONFIG_ADC_2);
+    Voltaccx = Sampling(CONFIG_ADC_0);
+    Voltaccy = Sampling(CONFIG_ADC_1);
+    Voltaccz = Sampling(CONFIG_ADC_2);
+
+    afficherDonnees(Voltaccx, Voltaccy, Voltaccz);
 
     }
+
 }
 
 uint16_t adcValue0;
@@ -103,21 +114,31 @@ extern void TacheADC_init(void){
     Clock_start(Clock_handle(&myClock));//Timer start
 }
 
-void Sampling(uint_least8_t Board_ADC_Number){
+
+float Voltacc;
+
+
+float Sampling(uint_least8_t Board_ADC_Number){
     adc = ADC_open(Board_ADC_Number, &params);
+
     if (adc == NULL){
         while (1);
     }
     for (i = 0; i < ADC_SAMPLE_COUNT; i++){
         res = ADC_convert(adc, &adcValue1[i]);
         if (res == ADC_STATUS_SUCCESS){
-            adcValue1MicroVolt[i] =
-            ADC_convertRawToMicroVolts(adc,
-            adcValue1[i]);
+            adcValue1MicroVolt[i] = ADC_convertRawToMicroVolts(adc,adcValue1[i]);
         }
     }
     ADC_close(adc);
+
+    Voltacc = (float)(adcValue1MicroVolt[0]/1000000.0f);
+   // Voltacc = ((float)(adcValue1MicroVolt[0]/1000000.0f) - 1.65.0f)/0.66.0f;
+
+    return Voltacc;
 }
+
+
 
 void TacheADC_CreateTask(void){
 
@@ -138,6 +159,8 @@ void TacheADC_CreateTask(void){
     Semaphore_construct(&semTacheADCStruct,0, &semParams);
     /* Obtenir la gestion de l'instance */
     semTacheADCHandle = Semaphore_handle(&semTacheADCStruct);
+
+
 }
 
 

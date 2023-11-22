@@ -13,6 +13,8 @@ void LCD_Init(void);
 void floatToString(char* ax, float AX);
 void floatToString1d(char* ax, float AX);
 void intToString(char* ax, float AX);
+void TacheLCD_CreateTask(void);
+void afficherDonnees(float Vaccx, float Vaccy, float Vaccz);
 
 
 
