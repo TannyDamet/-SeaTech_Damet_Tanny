@@ -47,7 +47,6 @@
 
 #ifndef TacheLCD_TASK_STACK_SIZE
 #define TacheLCD_TASK_STACK_SIZE                   1024
-#endif
 
 // Task configuration
 Task_Struct TacheLCD;
